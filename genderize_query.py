@@ -24,3 +24,12 @@ def get_dataframe(flat_list):
     """ Returns pandas dataframe, where every row is a dictionary from the flat list
     """
     return pd.DataFrame(flat_list)
+
+def get_stats(df,col):
+    """ Returns a dictionary with number absolute and relative frequency
+    """
+    total =len(df)
+    dic =  df[col].value_counts().to_dict()
+    for k,v in dic.items():
+        dic[k] = [v,round(v/total,2)]
+    return dic
