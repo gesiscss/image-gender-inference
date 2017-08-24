@@ -43,3 +43,17 @@ def save_file(df,path,typ="json"):
     else:
         df.to_json(path)
     print("File saved at: "+path)
+
+if __name__ == "__main__":
+
+    # example
+
+    name_list = ["Peter", "Jovan", "Nick","Maria"]
+
+    flat_list = fetch_gender(name_list,genderize)
+
+    df = get_dataframe(flat_list)
+
+    print("Stats: "get_stats(df,"gender"))
+
+    save_file(df,"example_output.csv","csv")
