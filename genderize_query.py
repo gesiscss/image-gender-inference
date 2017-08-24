@@ -33,3 +33,13 @@ def get_stats(df,col):
     for k,v in dic.items():
         dic[k] = [v,round(v/total,2)]
     return dic
+
+def save_file(df,path,typ="json"):
+    """Saves dataframe as file in specified format:
+       JSON or CSV
+    """
+    if typ == "csv":
+        df.to_csv(path)
+    else:
+        df.to_json(path)
+    print("File saved at: "+path)
