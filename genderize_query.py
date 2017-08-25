@@ -96,7 +96,7 @@ if __name__ == "__main__":
     input_path = sys.argv[1]
     output_path = sys.argv[2]
 
-    genderize = get_genderize('ebebc52f3b62785a2736f670eba79cad')
+    genderize = get_genderize('') #Add your API key
 
     # example
 
