@@ -1,4 +1,5 @@
 import pandas as pd
+import sys
 from genderize import Genderize
 # Genderize client can be downloaded from:
 # https://pypi.python.org/pypi/Genderize
@@ -34,6 +35,16 @@ def get_stats(df,col):
         dic[k] = [v,round(v/total,2)]
     return dic
 
+def load_file(path,col,typ="json"):
+    """ Returns list of unique names from a specified file, and column
+    """
+    if typ == "csv":
+        df = pd.read_csv(path)
+    else:
+        df = pd.read_json(path)
+    name_list = df[col].unique()
+    return name_list
+
 def save_file(df,path,typ="json"):
     """Saves dataframe as file in specified format:
        JSON or CSV
@@ -46,14 +57,19 @@ def save_file(df,path,typ="json"):
 
 if __name__ == "__main__":
 
+    input_path = sys.argv[1]
+    output_path = sys.argv[2]
+
     # example
 
-    name_list = ["Peter", "Jovan", "Nick","Maria"]
+    name_list = load_file(input_path,"name")
+
+    print("Fetching gender...")
 
     flat_list = fetch_gender(name_list,genderize)
 
     df = get_dataframe(flat_list)
 
-    print("Stats: "get_stats(df,"gender"))
+    print("Stats: {}".format(get_stats(df,"gender")))
 
-    save_file(df,"example_output.csv","csv")
+    save_file(df,output_path,"csv")
