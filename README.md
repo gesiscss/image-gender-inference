@@ -30,7 +30,7 @@ name |
 --- | 
 Peter |
 Fariba |
-Maria |
+Jovan |
 
 ### Output file
 
@@ -103,6 +103,8 @@ python faceplus_query.py [inputfile.csv] [outputfile.json]
 
 ## faceplus_processing
 
+After generating the json file with face++, it needs to be processed, and this can be done using the face_plus_processing.py whichh also follows the approach specified in the refferenced paper.
+
 ### Input file
 
 Json file specified above.
@@ -112,9 +114,7 @@ Json file specified above.
 name | gender |
 --- |--- | 
 Fariba+Karimi | female |
-Jovan+Jovanovic | male |
-
-After generating the json file with face++, it needs to be processed, and this can be done using the face_plus_processing.py whichh also follows the approach specified in the refferenced paper. 
+Jovan+Jovanovic | male | 
 
 ```{r, engine='bash', count_lines}
 python faceplus_processing.py [inputfile.json] [outputfile.csv]
