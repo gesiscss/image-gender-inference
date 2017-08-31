@@ -93,6 +93,6 @@ if __name__ == "__main__":
     path_read = sys.argv[1]
     path_write = sys.argv[2]
 
-    df = gender_df(path_read,path_write",70)
+    df = gender_df(path_read,path_write,70)
 
     # health = gender_df("google_img/health.json","google_img/health.csv")
