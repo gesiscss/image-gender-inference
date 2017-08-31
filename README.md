@@ -91,12 +91,32 @@ Peter+Smith | http://.. |http://.. |http://.. |http://.. |http://.. |
 --- |--- |--- |--- |--- |--- | 
 Fariba+Karimi |http://.. |http://.. |http://.. |http://.. |http://.. |
 Jovan+Jovanovic |http://.. |http://.. |http://.. |http://.. |http://.. |
- 
+
+
+### Output file
+
+This file contains results for each image passed to the API. The results contain information about url, image size, face attributes like: gender , age, pose, race, smiling, mouth_left, mouth_righ, nose, eye_right.
+
 ```{r, engine='bash', count_lines}
-python faceplus_query [inputfile.csv] [outputfile.json]
+python faceplus_query.py [inputfile.csv] [outputfile.json]
 ```
 
-## face_plus_processing
+## faceplus_processing
+
+### Input file
+
+Json file specified above.
+
+### Output file
+
+name | gender |
+--- |--- | 
+Fariba+Karimi | female |
+Jovan+Jovanovic | male |
 
 After generating the json file with face++, it needs to be processed, and this can be done using the face_plus_processing.py whichh also follows the approach specified in the refferenced paper. 
+
+```{r, engine='bash', count_lines}
+python faceplus_processing.py [inputfile.json] [outputfile.csv]
+```
  
