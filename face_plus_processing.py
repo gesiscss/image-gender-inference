@@ -3,7 +3,7 @@
 
 
 import pandas as pd
-
+import sys
 
 def clean(x):
     """ Returns a dictionary with gender related information only 
@@ -90,8 +90,9 @@ def gender_df(path, path_save, thres=70):
 
 if __name__ == "__main__":
 
-    # examples:
+    path_read = sys.argv[1]
+    path_write = sys.argv[2]
 
-    # formal = gender_df("google_img/formal.json","google_img/formal.csv",70)
+    df = gender_df(path_read,path_write",70)
 
     # health = gender_df("google_img/health.json","google_img/health.csv")
