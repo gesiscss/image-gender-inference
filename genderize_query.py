@@ -1,6 +1,8 @@
 import pandas as pd
 import sys
 from genderize import Genderize
+import time
+
 # Genderize client can be downloaded from:
 # https://pypi.python.org/pypi/Genderize
 
@@ -23,8 +25,23 @@ def fetch_gender(name_list, genderize_obj):
     # name_list = df.cleaned_name.unique()
     gender_list = []
     for i in range(0, len(name_list), 10):
-        gender_list.append(genderize_obj.get(name_list[i:i + 10]))
-    gender_list[0]
+        
+        # sometimes helps to be polite
+        if i % 5 == 0:
+            time.sleep(2)
+        try:
+            resp = genderize_obj.get(name_list[i:i + 10])
+        except Exception as e:
+            print(e)
+            print(name_list[i:i + 10])
+            time.sleep(120)
+            resp = genderize_obj.get(name_list[i:i + 10])
+            print("Had a 2 minute break")
+        # print(x)
+        if i % 50 == 0:
+            print(str(i+50)+" names fetched!")
+        gender_list.append(resp)
+    # gender_list[0]
     gender_list_flat = [item for sublist in gender_list for item in sublist]
     return gender_list_flat
 
@@ -73,8 +90,9 @@ def load_file(path, col, typ="json"):
         df = pd.read_csv(path)
     else:
         df = pd.read_json(path)
-    print("Loading: {}".format(input_path))
+    print("Loading: {}".format(path))
     name_list = df[col].unique()
+    print("Loaded {} unique names".format(len(name_list)))
     return name_list
 
 
@@ -83,10 +101,17 @@ def save_file(df, path, typ="json"):
        JSON or CSV
     """
     if typ == "csv":
-        df.to_csv(path)
+        df.to_csv(path,encoding = "utf8")
     else:
         df.to_json(path)
     print("File saved at: " + path)
+
+def get_gender_dictionaty(df):
+    """ Returns a dictionary where KEY is FIRST NAME and VALUE is GENDER
+    """
+    df = df[df['gender'] != 'unknown']
+    gender_dict = df[['name','gender']].set_index('name')['gender'].to_dict()
+    return gender_dict
 
 if __name__ == "__main__":
 
@@ -96,7 +121,7 @@ if __name__ == "__main__":
     input_path = sys.argv[1]
     output_path = sys.argv[2]
 
-    genderize = get_genderize('') #Add your API key
+    genderize = get_genderize('886cbf0996d6aa757c44f708b4faafee') #Add your API key
 
     # example
 
@@ -106,9 +131,10 @@ if __name__ == "__main__":
 
     flat_list=fetch_gender(name_list, genderize)
 
-    df=get_dataframe(flat_list)
-    # df=get_dataframe_thres(flat_list,0.8)
+    df_no_thres = get_dataframe(flat_list)
+    df = get_dataframe_thres(flat_list,0.8)
 
     print("Stats: {}".format(get_stats(df, "gender")))
 
     save_file(df, output_path, "csv")
+    save_file(df_no_thres, output_path.replace(".csv","")+"_no_thres.csv", "csv")
