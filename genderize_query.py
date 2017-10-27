@@ -113,6 +113,13 @@ def get_gender_dictionaty(df):
     gender_dict = df[['name','gender']].set_index('name')['gender'].to_dict()
     return gender_dict
 
+def get_gender_dictionaty(df):
+    """ Returns a dictionary where KEY is FIRST NAME and VALUE is GENDER
+    """
+    df = df[df['gender'] != 'unknown']
+    gender_dict = df[['name','gender']].set_index('name')['gender'].to_dict()
+    return gender_dict
+
 if __name__ == "__main__":
 
     # command line arguments for input and output file paths
