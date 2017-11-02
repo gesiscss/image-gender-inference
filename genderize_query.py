@@ -106,25 +106,12 @@ def save_file(df, path, typ="json"):
         df.to_json(path)
     print("File saved at: " + path)
 
-def get_gender_dictionaty(df):
-    """ Returns a dictionary where KEY is FIRST NAME and VALUE is GENDER
-    """
-    df = df[df['gender'] != 'unknown']
-    gender_dict = df[['name','gender']].set_index('name')['gender'].to_dict()
-    return gender_dict
-
-def get_gender_dictionaty(df):
-    """ Returns a dictionary where KEY is FIRST NAME and VALUE is GENDER
-    """
-    df = df[df['gender'] != 'unknown']
-    gender_dict = df[['name','gender']].set_index('name')['gender'].to_dict()
-    return gender_dict
-
 if __name__ == "__main__":
 
     # command line arguments for input and output file paths
     # input_path "input.csv"
     # output_path "output.csv"
+    
     input_path = sys.argv[1]
     output_path = sys.argv[2]
 
