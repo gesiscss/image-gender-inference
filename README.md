@@ -9,6 +9,7 @@ In order to perform gender inference according to the aproach described in the p
 2. [getGoogleImagesv0.31.jar](https://github.com/frbkrm/image-gender-inference/blob/master/getGoogleImagesv0.31.jar)
 3. [get_google_images.py](https://github.com/frbkrm/image-gender-inference/blob/master/get_google_images.py)
 4. [faceplus_query.py](https://github.com/frbkrm/image-gender-inference/blob/master/faceplus_query.py)
+5. [tasks.py](https://github.com/frbkrm/image-gender-inference/blob/master/tasks.py)
 
 ## genderize_query
 
@@ -155,4 +156,7 @@ Jovan+Jovanovic | male |
 ```{r, engine='bash', count_lines}
 python faceplus_processing.py [inputfile.json] [outputfile.csv]
 ```
+
+## tasks.py
  
+This script is developed to be used as a module as it contains tasks which are recurring when preparing data for the pipeline.  
