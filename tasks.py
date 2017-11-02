@@ -36,4 +36,9 @@ def print_stats(df, col):
     dic.update((k, v / total ) for k,v in dic.items())
     print(dic)
 
-# add filter unknown 
+def concat_dataframes(df_list = []):
+	""" Verticaly concats given data frames 
+	"""
+    return pd.concat(df_list)
+
+# add filter unknown or nan
